@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Quiz App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Welcome Screen -->
+        <div id="welcome-screen" class="screen active">
+            <div class="welcome-content">
+                <h1>Interactive Quiz App</h1>
+                <p>Test your knowledge with our comprehensive quiz!</p>
+                <div class="quiz-info">
+                    <div class="info-item">
+                        <span class="info-icon">📝</span>
+                        <span>10 Questions</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-icon">⏱️</span>
+                        <span>Timed Challenge</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-icon">🏆</span>
+                        <span>Track Your Progress</span>
+                    </div>
+                </div>
+                <button id="start-quiz-btn" class="btn btn-primary">Start Quiz</button>
+            </div>
+        </div>
+
+        <!-- Category Selection Screen -->
+        <div id="category-screen" class="screen">
+            <div class="category-content">
+                <div class="category-header">
+                    <h1>Choose Your Quiz Category</h1>
+                    <p>Select a programming language to test your knowledge!</p>
+                </div>
+                <div class="category-grid">
+                    <div class="category-card" data-category="javascript">
+                        <div class="category-icon">🟨</div>
+                        <h3>JavaScript</h3>
+                        <p>Master the language of the web</p>
+                    </div>
+                    <div class="category-card" data-category="python">
+                        <div class="category-icon">🐍</div>
+                        <h3>Python</h3>
+                        <p> versatile and beginner-friendly</p>
+                    </div>
+                    <div class="category-card" data-category="java">
+                        <div class="category-icon">☕</div>
+                        <h3>Java</h3>
+                        <p>Enterprise-grade programming</p>
+                    </div>
+                    <div class="category-card" data-category="cpp">
+                        <div class="category-icon">⚡</div>
+                        <h3>C++</h3>
+                        <p>High-performance systems programming</p>
+                    </div>
+                    <div class="category-card" data-category="csharp">
+                        <div class="category-icon">🔷</div>
+                        <h3>C#</h3>
+                        <p>Microsoft's powerful language</p>
+                    </div>
+                    <div class="category-card" data-category="php">
+                        <div class="category-icon">🐘</div>
+                        <h3>PHP</h3>
+                        <p>Server-side web development</p>
+                    </div>
+                    <div class="category-card" data-category="ruby">
+                        <div class="category-icon">💎</div>
+                        <h3>Ruby</h3>
+                        <p>Elegant and productive</p>
+                    </div>
+                    <div class="category-card" data-category="go">
+                        <div class="category-icon">🔵</div>
+                        <h3>Go</h3>
+                        <p>Modern concurrent programming</p>
+                    </div>
+                    <div class="category-card" data-category="rust">
+                        <div class="category-icon">🦀</div>
+                        <h3>Rust</h3>
+                        <p>Safe systems programming</p>
+                    </div>
+                    <div class="category-card" data-category="swift">
+                        <div class="category-icon">🍎</div>
+                        <h3>Swift</h3>
+                        <p>iOS and macOS development</p>
+                    </div>
+                </div>
+                <div class="category-actions">
+                    <button id="back-to-welcome-btn" class="btn btn-secondary">Back to Welcome</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quiz Screen -->
+        <div id="quiz-screen" class="screen">
+            <div class="quiz-header">
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div id="progress-fill" class="progress-fill"></div>
+                    </div>
+                    <div class="progress-text">
+                        <span id="current-question">1</span> / <span id="total-questions">10</span>
+                    </div>
+                </div>
+                <div class="score-container">
+                    <span class="score-label">Score:</span>
+                    <span id="current-score">0</span>
+                </div>
+            </div>
+
+            <div class="quiz-content">
+                <div class="timer-container">
+                    <span class="timer-label">Time:</span>
+                    <span id="timer">00:00</span>
+                </div>
+
+                <div class="question-container">
+                    <h2 id="question-text">Loading question...</h2>
+                    <div id="options-container" class="options-container">
+                        <!-- Options will be dynamically generated -->
+                    </div>
+                </div>
+
+                <div class="navigation-buttons">
+                    <button id="prev-btn" class="btn btn-secondary" disabled>Previous</button>
+                    <button id="next-btn" class="btn btn-primary">Next</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Screen -->
+        <div id="results-screen" class="screen">
+            <div class="results-content">
+                <div class="results-header">
+                    <h1>Quiz Complete!</h1>
+                    <div class="celebration">🎉</div>
+                </div>
+
+                <div class="results-stats">
+                    <div class="stat-card">
+                        <div class="stat-number" id="final-score">0</div>
+                        <div class="stat-label">Final Score</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="percentage">0%</div>
+                        <div class="stat-label">Percentage</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="time-taken">00:00</div>
+                        <div class="stat-label">Time Taken</div>
+                    </div>
+                </div>
+
+                <div class="performance-breakdown">
+                    <h3>Performance Breakdown</h3>
+                    <div class="breakdown-item">
+                        <span class="breakdown-label">Correct Answers:</span>
+                        <span id="correct-answers" class="breakdown-value correct">0</span>
+                    </div>
+                    <div class="breakdown-item">
+                        <span class="breakdown-label">Incorrect Answers:</span>
+                        <span id="incorrect-answers" class="breakdown-value incorrect">0</span>
+                    </div>
+                    <div class="breakdown-item">
+                        <span class="breakdown-label">Grade:</span>
+                        <span id="grade" class="breakdown-value grade">-</span>
+                    </div>
+                </div>
+
+                <div class="results-actions">
+                    <button id="restart-btn" class="btn btn-primary">Take Quiz Again</button>
+                    <button id="review-btn" class="btn btn-secondary">Review Wrong Answers</button>
+                    <button id="view-history-btn" class="btn btn-secondary">View History</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- History Screen -->
+        <div id="history-screen" class="screen">
+            <div class="history-content">
+                <h1>Quiz History</h1>
+                <div id="history-list" class="history-list">
+                    <!-- History items will be dynamically generated -->
+                </div>
+                <button id="back-to-results-btn" class="btn btn-secondary">Back to Results</button>
+            </div>
+        </div>
+
+        <!-- Review Screen -->
+        <div id="review-screen" class="screen">
+            <div class="review-content">
+                <div class="review-header">
+                    <h1>Review Wrong Answers</h1>
+                    <p>Learn from your mistakes and improve your knowledge!</p>
+                </div>
+                <div id="review-list" class="review-list">
+                    <!-- Review items will be dynamically generated -->
+                </div>
+                <div class="review-actions">
+                    <button id="back-to-results-2-btn" class="btn btn-secondary">Back to Results</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
